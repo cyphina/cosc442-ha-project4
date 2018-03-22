@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>CoffeeMakerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">edu.towson.cis.cosc442.project4.coffeemaker (Mar 22, 2018 6:46:37 PM)</a> &gt; <a href="../../index.html" class="el_group">CoffeeMaker</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc442.project4.coffeemaker</a> &gt; <span class="el_source">CoffeeMakerTest.java</span></div><h1>CoffeeMakerTest.java</h1><pre class="source lang-java linenums">package edu.towson.cis.cosc442.project4.coffeemaker;
+
+import junit.framework.TestCase;
+
+/**
+ * Tests for the CoffeeMaker class
+ */
+
+<span class="nc" id="L9">public class CoffeeMakerTest extends TestCase {</span>
+	private CoffeeMaker cm;
+	private Inventory i;
+	private Recipe r1;
+
+	public void setUp() {
+<span class="nc" id="L15">		cm = new CoffeeMaker();</span>
+<span class="nc" id="L16">	}</span>
+
+	/** Test successful adding of a recipe*/
+	public void testAddRecipe1() {
+<span class="nc" id="L20">		r1 = new Recipe();</span>
+<span class="nc" id="L21">		r1.setName(&quot;Coffee&quot;);</span>
+<span class="nc" id="L22">		r1.setPrice(50);</span>
+<span class="nc" id="L23">		r1.setAmtCoffee(3);</span>
+<span class="nc" id="L24">		r1.setAmtMilk(1);</span>
+<span class="nc" id="L25">		r1.setAmtSugar(1);</span>
+<span class="nc" id="L26">		r1.setAmtChocolate(0);</span>
+		
+<span class="nc" id="L28">		assertTrue(cm.addRecipe(r1));	</span>
+<span class="nc" id="L29">	}</span>
+	
+	/** Test failure on adding the same recipe (at least according to thee doesRecipeExist() which checks based on = operator) */
+	public void testAddRecipe2() {
+<span class="nc" id="L33">		r1 = new Recipe();</span>
+<span class="nc" id="L34">		r1.setName(&quot;Coffee&quot;);</span>
+<span class="nc" id="L35">		r1.setPrice(50);</span>
+<span class="nc" id="L36">		r1.setAmtCoffee(3);</span>
+<span class="nc" id="L37">		r1.setAmtMilk(1);</span>
+<span class="nc" id="L38">		r1.setAmtSugar(1);</span>
+<span class="nc" id="L39">		r1.setAmtChocolate(0);</span>
+		
+<span class="nc" id="L41">		assertTrue(cm.addRecipe(r1));	</span>
+<span class="nc" id="L42">		assertFalse(cm.addRecipe(r1));	</span>
+<span class="nc" id="L43">	}</span>
+	
+	/** Test failure on adding a recipe when recipe book is full */
+	public void testAddRecipe3() {
+<span class="nc" id="L47">		r1 = new Recipe();</span>
+<span class="nc" id="L48">		Recipe r2 = new Recipe();</span>
+<span class="nc" id="L49">		Recipe r3 = new Recipe();</span>
+<span class="nc" id="L50">		Recipe r4 = new Recipe();</span>
+<span class="nc" id="L51">		Recipe r5 = new Recipe();</span>
+		
+<span class="nc" id="L53">		r1.setName(&quot;Coffee&quot;);</span>
+<span class="nc" id="L54">		r2.setName(&quot;Expresso&quot;);</span>
+<span class="nc" id="L55">		r3.setName(&quot;Dragon's Blood Coffee&quot;);</span>
+<span class="nc" id="L56">		r4.setName(&quot;Your mom's juice&quot;);</span>
+<span class="nc" id="L57">		r5.setName(&quot;Your other mom's juice&quot;);</span>
+		
+<span class="nc" id="L59">		assertTrue(cm.addRecipe(r1));	</span>
+<span class="nc" id="L60">		assertTrue(cm.addRecipe(r2));	</span>
+<span class="nc" id="L61">		assertTrue(cm.addRecipe(r3));	</span>
+<span class="nc" id="L62">		assertTrue(cm.addRecipe(r4));	</span>
+<span class="nc" id="L63">		assertFalse(cm.addRecipe(r5));	</span>
+<span class="nc" id="L64">	}</span>
+	
+	/**--Inventory adding tests, making sure to completely cover the tests based on decision coverage--*/
+	
+	/** Sucessful adding case */
+	public void testAddInventory1() {
+<span class="nc" id="L70">		int amtCoffee = 3;</span>
+<span class="nc" id="L71">		int amtMilk = 3;</span>
+<span class="nc" id="L72">		int amtSugar = 0;</span>
+<span class="nc" id="L73">		int amtChocolate = 3;</span>
+
+<span class="nc" id="L75">		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);</span>
+
+		// add additional test code here
+<span class="nc" id="L78">		assertEquals(true, result);</span>
+<span class="nc" id="L79">	}</span>
+	
+	public void testAddInventory2() {
+<span class="nc" id="L82">		int amtCoffee = 1;</span>
+<span class="nc" id="L83">		int amtMilk = 1;</span>
+<span class="nc" id="L84">		int amtSugar = 0;</span>
+<span class="nc" id="L85">		int amtChocolate = -1;</span>
+
+<span class="nc" id="L87">		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);</span>
+
+<span class="nc" id="L89">		assertEquals(false, result);</span>
+<span class="nc" id="L90">	}</span>
+	
+	public void testAddInventory3() {
+<span class="nc" id="L93">		int amtCoffee = -1;</span>
+<span class="nc" id="L94">		int amtMilk = 1;</span>
+<span class="nc" id="L95">		int amtSugar = 1;</span>
+<span class="nc" id="L96">		int amtChocolate = 1;</span>
+
+<span class="nc" id="L98">		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);</span>
+
+<span class="nc" id="L100">		assertEquals(false, result);</span>
+<span class="nc" id="L101">	}</span>
+
+	public void testAddInventory4() {
+<span class="nc" id="L104">		int amtCoffee = 1;</span>
+<span class="nc" id="L105">		int amtMilk = -1;</span>
+<span class="nc" id="L106">		int amtSugar = 1;</span>
+<span class="nc" id="L107">		int amtChocolate = 1;</span>
+
+<span class="nc" id="L109">		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);</span>
+
+		// add additional test code here
+<span class="nc" id="L112">		assertEquals(false, result);</span>
+<span class="nc" id="L113">	}</span>
+
+	public void testAddInventory5() {
+<span class="nc" id="L116">		int amtCoffee = 1;</span>
+<span class="nc" id="L117">		int amtMilk = 1;</span>
+<span class="nc" id="L118">		int amtSugar = 1;</span>
+<span class="nc" id="L119">		int amtChocolate = 1;</span>
+
+<span class="nc" id="L121">		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);</span>
+
+		// add additional test code here
+<span class="nc" id="L124">		assertEquals(false, result);</span>
+<span class="nc" id="L125">	}</span>
+	
+	/**Test successful deletion of a recipe*/
+	public void testDeleteRecipe1() {
+<span class="nc" id="L129">		r1 = new Recipe();</span>
+<span class="nc" id="L130">		r1.setName(&quot;PapayaCoffee&quot;);</span>
+<span class="nc" id="L131">		cm.addRecipe(r1);</span>
+<span class="nc" id="L132">		assertTrue(cm.deleteRecipe(r1));</span>
+<span class="nc" id="L133">	}</span>
+	
+	/**Test failure to delete due to passing in a null recipe */
+	public void testDeleteRecipe2() {
+<span class="nc" id="L137">		r1 = new Recipe();</span>
+<span class="nc" id="L138">		cm.addRecipe(r1);</span>
+<span class="nc" id="L139">		assertFalse(cm.deleteRecipe(null));</span>
+<span class="nc" id="L140">	}</span>
+	
+	/**Test failure to delete because recipe isn't in the array */
+	public void testDeleteRecipe3() {
+<span class="nc" id="L144">		r1 = new Recipe();</span>
+<span class="nc" id="L145">		cm.addRecipe(r1);</span>
+<span class="nc" id="L146">		Recipe r2 = new Recipe();</span>
+<span class="nc" id="L147">		assertFalse(cm.deleteRecipe(r2));</span>
+<span class="nc" id="L148">	}</span>
+
+	/** Successful edit of a recipe */
+	public void testEditRecipe1() {
+<span class="nc" id="L152">		r1 = new Recipe();</span>
+<span class="nc" id="L153">		r1.setName(&quot;Papayadrink&quot;);</span>
+<span class="nc" id="L154">		cm.addRecipe(r1);</span>
+<span class="nc" id="L155">		r1.setAmtSugar(2);</span>
+<span class="nc" id="L156">		assertTrue(cm.editRecipe(r1, r1));</span>
+<span class="nc" id="L157">	}</span>
+	
+	/**Try to edit recipe but no valid recipes with a name in the recipe list*/
+	public void testEditRecipe2() {
+<span class="nc" id="L161">		r1 = new Recipe();</span>
+<span class="nc" id="L162">		r1.setName(null);</span>
+<span class="nc" id="L163">		cm.addRecipe(r1);</span>
+<span class="nc" id="L164">		r1.setAmtSugar(2);</span>
+<span class="nc" id="L165">		assertFalse(cm.editRecipe(r1, r1));</span>
+<span class="nc" id="L166">	}</span>
+	/**Fail because there is no existing recipe equal to newrecipe so we're not editing an existing item*/
+	public void testEditRecipe3() {
+<span class="nc" id="L169">		r1 = new Recipe();</span>
+<span class="nc" id="L170">		r1.setName(&quot;Papayadrink&quot;);</span>
+<span class="nc" id="L171">		cm.addRecipe(r1);</span>
+<span class="nc" id="L172">		Recipe newRecipe = new Recipe();</span>
+<span class="nc" id="L173">		assertFalse(cm.editRecipe(r1, newRecipe));</span>
+<span class="nc" id="L174">	}</span>
+	
+	/** Problematic way of trying to edit a recipe which should fail.  Editing recipe function itself is broken but this 
+	 * just covers more of the problematic function*/
+	public void testEditRecipe4() {
+<span class="nc" id="L179">		r1 = new Recipe();</span>
+<span class="nc" id="L180">		r1.setName(&quot;Papayadrink&quot;);</span>
+<span class="nc" id="L181">		cm.addRecipe(r1);</span>
+		
+<span class="nc" id="L183">		Recipe newRecipe = new Recipe();</span>
+<span class="nc" id="L184">		newRecipe = r1;</span>
+<span class="nc" id="L185">		newRecipe.setAmtSugar(2);</span>
+		
+<span class="nc" id="L187">		assertTrue(cm.editRecipe(r1, newRecipe));</span>
+		//According to the edit function, when we try to edit something, it will make the old copy stored in the array into a default
+		//Recipe() then add in th new recipe.
+<span class="nc" id="L190">		assertTrue(cm.editRecipe(r1, newRecipe));</span>
+<span class="nc" id="L191">		assertTrue(cm.editRecipe(r1, newRecipe));</span>
+<span class="nc" id="L192">		assertFalse(cm.editRecipe(r1, newRecipe));</span>
+<span class="nc" id="L193">	}</span>
+	
+	/** Check to see what's in the inventory */
+	public void testCheckInventory() {
+<span class="nc" id="L197">		Inventory result = cm.checkInventory();</span>
+<span class="nc" id="L198">		assertNotNull(result);</span>
+<span class="nc" id="L199">		assertEquals(&quot;Coffee: 15nullMilk: 15nullSugar: 15nullChocolate: 15null&quot;, result.toString());</span>
+<span class="nc" id="L200">		assertEquals(15, result.getChocolate());</span>
+<span class="nc" id="L201">		assertEquals(15, result.getCoffee());</span>
+<span class="nc" id="L202">		assertEquals(15, result.getSugar());</span>
+<span class="nc" id="L203">		assertEquals(15, result.getMilk());</span>
+<span class="nc" id="L204">	}</span>
+	
+	/**Successful making of some kind of coffee */
+	public void testMakeCoffee_1() {
+		
+<span class="nc" id="L209">		r1 = new Recipe();</span>
+<span class="nc" id="L210">		r1.setName(&quot;Coffee&quot;);</span>
+<span class="nc" id="L211">		r1.setPrice(50);</span>
+<span class="nc" id="L212">		r1.setAmtCoffee(3);</span>
+<span class="nc" id="L213">		r1.setAmtMilk(1);</span>
+<span class="nc" id="L214">		r1.setAmtSugar(1);</span>
+<span class="nc" id="L215">		r1.setAmtChocolate(0);</span>
+		
+<span class="nc" id="L217">		testAddInventory1();</span>
+		
+<span class="nc" id="L219">		int amtPaid = 51;</span>
+<span class="nc" id="L220">		int result = cm.makeCoffee(r1, amtPaid);</span>
+
+		// add additional test code here
+<span class="nc" id="L223">		assertEquals(1, result);</span>
+<span class="nc" id="L224">	}</span>
+	
+	/**Unsuccessful attempt at making coffee due to not enough price*/
+	public void testMakeCoffee2() {
+		
+<span class="nc" id="L229">		r1 = new Recipe();</span>
+<span class="nc" id="L230">		r1.setName(&quot;Coffee&quot;);</span>
+<span class="nc" id="L231">		r1.setPrice(50);</span>
+<span class="nc" id="L232">		r1.setAmtCoffee(3);</span>
+<span class="nc" id="L233">		r1.setAmtMilk(1);</span>
+<span class="nc" id="L234">		r1.setAmtSugar(1);</span>
+<span class="nc" id="L235">		r1.setAmtChocolate(0);</span>
+		
+<span class="nc" id="L237">		testAddInventory1();</span>
+		
+<span class="nc" id="L239">		int amtPaid = 49;</span>
+<span class="nc" id="L240">		int result = cm.makeCoffee(r1, amtPaid);</span>
+
+		// add additional test code here
+<span class="nc" id="L243">		assertEquals(49, result);</span>
+<span class="nc" id="L244">	}</span>
+	
+	/**Unsuccessful attempt at making coffee due to not enough supplies*/
+	public void testMakeCoffee3() {
+		
+<span class="nc" id="L249">		r1 = new Recipe();</span>
+<span class="nc" id="L250">		r1.setName(&quot;Coffee&quot;);</span>
+<span class="nc" id="L251">		r1.setPrice(50);</span>
+<span class="nc" id="L252">		r1.setAmtCoffee(3);</span>
+<span class="nc" id="L253">		r1.setAmtMilk(1);</span>
+<span class="nc" id="L254">		r1.setAmtSugar(20);</span>
+<span class="nc" id="L255">		r1.setAmtChocolate(0);</span>
+		
+<span class="nc" id="L257">		int amtPaid = 51;</span>
+<span class="nc" id="L258">		int result = cm.makeCoffee(r1, amtPaid);</span>
+
+		// add additional test code here
+<span class="nc" id="L261">		assertEquals(51, result);</span>
+<span class="nc" id="L262">	}</span>
+	
+	/**Test to see if the recipe accessors works */
+	public void testGetRecipe() {
+<span class="nc" id="L266">		Recipe[] recipes = cm.getRecipes();</span>
+<span class="nc" id="L267">		assertEquals(4, recipes.length);</span>
+<span class="nc" id="L268">		assertEquals(null, recipes[0].getName());</span>
+<span class="nc" id="L269">	}</span>
+	
+	/**Test to see if we can get the recipe associated with a name.  Should sucessfully do so in this test case*/
+	public void testGetRecipeForName1() {
+<span class="nc" id="L273">			Recipe r1 = new Recipe();</span>
+<span class="nc" id="L274">			r1.setName(&quot;Coffee&quot;);</span>
+<span class="nc" id="L275">			cm.addRecipe(r1);</span>
+<span class="nc" id="L276">			String name = &quot;Coffee&quot;;</span>
+
+<span class="nc" id="L278">			Recipe result = cm.getRecipeForName(name);</span>
+<span class="nc" id="L279">			assertEquals(result, r1);</span>
+<span class="nc" id="L280">		}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>edu.towson.cis.cosc442.project4.coffeemaker (Mar 22, 2018 6:46:37 PM)</div></body></html>

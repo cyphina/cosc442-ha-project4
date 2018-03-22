@@ -220,7 +220,7 @@ public class Main {
             System.out.println((i+1) + ". " + recipes[i].getName());
         }
         String recipeToPurchaseString = inputOutput("Please select the number of the recipe to purchase.");
-        int recipeToPurchase = stringToInt(recipeToPurchaseString) -1;
+        int recipeToPurchase = stringToInt(recipeToPurchaseString) - 1;
 	    if(recipeToPurchase < 0) {
 	    	mainMenu();
 	    }
