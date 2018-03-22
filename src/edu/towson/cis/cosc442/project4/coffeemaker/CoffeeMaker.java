@@ -1,3 +1,4 @@
+// $codepro.audit.disable
 package edu.towson.cis.cosc442.project4.coffeemaker;
 /**
  * CoffeeMaker object
@@ -42,7 +43,7 @@ public class CoffeeMaker {
 	
     //Check for an empty recipe, add recipe to first empty spot
 	private boolean addRecipeToEmptySlot(Recipe r) {
-        	int emptySpot = findEmptySpot();
+        	final int emptySpot = findEmptySpot();
         	if(emptySpot != -1) {
         		recipeArray[emptySpot] = r;
         		recipeFull[emptySpot] = true;
@@ -81,7 +82,7 @@ public class CoffeeMaker {
         if(r != null) {
 	        for(int i = 0; i < NUM_RECIPES; i++) {
 	            if(r.equals(recipeArray[i])) {
-	                recipeArray[i] = recipeArray[i]; 
+	                recipeArray[i] = new Recipe(); 
 	                canDeleteRecipe = true;
 	            }
 	        }
