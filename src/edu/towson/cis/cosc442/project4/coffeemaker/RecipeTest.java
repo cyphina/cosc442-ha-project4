@@ -11,8 +11,10 @@ import static org.junit.Assert.*;
  * @version $Revision: 1.0 $
  */
 public class RecipeTest {
+	
+	Recipe fixture;
 	/**
-	 * Run the boolean equals(Recipe) method test.
+	 * Run the boolean equals(Recipe) method test where both names work
 	 *
 	 * @throws Exception
 	 *
@@ -21,14 +23,11 @@ public class RecipeTest {
 	@Test
 	public void testEquals_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
-		fixture.setName((String) null);
+		fixture.setName("Payaya");
 		Recipe r = new Recipe();
-
+		r.setName("Payaya");
 		boolean result = fixture.equals(r);
-
-		// add additional test code here
-		assertEquals(false, result);
+		assertEquals(true, result);
 	}
 
 	/**
@@ -41,8 +40,7 @@ public class RecipeTest {
 	@Test
 	public void testEquals_2()
 		throws Exception {
-		Recipe fixture = new Recipe();
-		fixture.setName("");
+		fixture.setName("Peewee");
 		Recipe r = new Recipe();
 
 		boolean result = fixture.equals(r);
@@ -61,16 +59,28 @@ public class RecipeTest {
 	@Test
 	public void testEquals_3()
 		throws Exception {
-		Recipe fixture = new Recipe();
-		fixture.setName("");
+		fixture.setName("peewee");
 		Recipe r = new Recipe();
 
-		boolean result = fixture.equals(r);
+		boolean result = r.equals(fixture);
 
 		// add additional test code here
 		assertEquals(false, result);
 	}
 
+	/**Test when two valid names but not equal*/
+	@Test
+	public void testEquals_4() 	throws Exception {
+		fixture.setName("peewee");
+		Recipe r = new Recipe();
+		r.setName("Payaya");
+
+		boolean result = r.equals(fixture);
+
+		// add additional test code here
+		assertEquals(false, result);
+	}
+	
 	/**
 	 * Run the int getAmtChocolate() method test.
 	 *
@@ -81,7 +91,6 @@ public class RecipeTest {
 	@Test
 	public void testGetAmtChocolate_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 
 		int result = fixture.getAmtChocolate();
@@ -100,7 +109,6 @@ public class RecipeTest {
 	@Test
 	public void testGetAmtCoffee_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 
 		int result = fixture.getAmtCoffee();
@@ -119,7 +127,6 @@ public class RecipeTest {
 	@Test
 	public void testGetAmtMilk_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 
 		int result = fixture.getAmtMilk();
@@ -138,7 +145,6 @@ public class RecipeTest {
 	@Test
 	public void testGetAmtSugar_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 
 		int result = fixture.getAmtSugar();
@@ -157,7 +163,6 @@ public class RecipeTest {
 	@Test
 	public void testGetName_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 
 		String result = fixture.getName();
@@ -176,7 +181,6 @@ public class RecipeTest {
 	@Test
 	public void testGetPrice_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 
 		int result = fixture.getPrice();
@@ -195,7 +199,6 @@ public class RecipeTest {
 	@Test
 	public void testSetAmtChocolate_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		int amtChocolate = -1;
 
@@ -214,7 +217,6 @@ public class RecipeTest {
 	@Test
 	public void testSetAmtChocolate_2()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		int amtChocolate = 1;
 
@@ -233,7 +235,6 @@ public class RecipeTest {
 	@Test
 	public void testSetAmtCoffee_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		int amtCoffee = -1;
 
@@ -252,7 +253,6 @@ public class RecipeTest {
 	@Test
 	public void testSetAmtCoffee_2()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		int amtCoffee = 1;
 
@@ -271,7 +271,6 @@ public class RecipeTest {
 	@Test
 	public void testSetAmtMilk_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		int amtMilk = -1;
 
@@ -290,7 +289,6 @@ public class RecipeTest {
 	@Test
 	public void testSetAmtMilk_2()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		int amtMilk = 1;
 
@@ -309,7 +307,6 @@ public class RecipeTest {
 	@Test
 	public void testSetAmtSugar_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		int amtSugar = -1;
 
@@ -328,7 +325,6 @@ public class RecipeTest {
 	@Test
 	public void testSetAmtSugar_2()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		int amtSugar = 1;
 
@@ -347,7 +343,6 @@ public class RecipeTest {
 	@Test
 	public void testSetName_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		String name = "";
 
@@ -385,7 +380,6 @@ public class RecipeTest {
 	@Test
 	public void testSetPrice_2()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 		int price = 1;
 
@@ -404,7 +398,6 @@ public class RecipeTest {
 	@Test
 	public void testToString_1()
 		throws Exception {
-		Recipe fixture = new Recipe();
 		fixture.setName("");
 
 		String result = fixture.toString();
@@ -424,7 +417,7 @@ public class RecipeTest {
 	@Before
 	public void setUp()
 		throws Exception {
-		// add additional set up code here
+		fixture = new Recipe();
 	}
 
 	/**
@@ -438,7 +431,6 @@ public class RecipeTest {
 	@After
 	public void tearDown()
 		throws Exception {
-		// Add additional tear down code here
 	}
 
 	/**

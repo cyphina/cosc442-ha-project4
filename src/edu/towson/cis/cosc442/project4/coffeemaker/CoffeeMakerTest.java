@@ -65,25 +65,27 @@ public class CoffeeMakerTest extends TestCase {
 	
 	/**--Inventory adding tests, making sure to completely cover the tests based on decision coverage--*/
 	
-	/** Sucessful adding case */
+	/** Successful adding case: Add nothing which also tests boundary */
 	public void testAddInventory1() {
-		int amtCoffee = 3;
-		int amtMilk = 3;
+		int amtCoffee = 0;
+		int amtMilk = 0;
 		int amtSugar = 0;
-		int amtChocolate = 3;
-
+		int amtChocolate = 0;
+		
 		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);
+	
 
-		// add additional test code here
 		assertEquals(true, result);
 	}
 	
+	/*Failed case because chocolate is negative*/
 	public void testAddInventory2() {
 		int amtCoffee = 1;
 		int amtMilk = 1;
 		int amtSugar = 0;
 		int amtChocolate = -1;
 
+		/** Not going to run because invalid input*/
 		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);
 
 		assertEquals(false, result);
@@ -115,13 +117,36 @@ public class CoffeeMakerTest extends TestCase {
 	public void testAddInventory5() {
 		int amtCoffee = 1;
 		int amtMilk = 1;
+		int amtSugar = -1;
+		int amtChocolate = 1;
+	
+		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);
+		
+		// add additional test code here
+		assertEquals(false, result);
+	}
+	
+	/**Non boundary value test used to kill mutants*/
+	public void testAddInventory6() {
+		int amtCoffee = 1;
+		int amtMilk = 1;
 		int amtSugar = 1;
 		int amtChocolate = 1;
 
+		int amtCoffeeBefore = cm.checkInventory().getCoffee();
+		int amtMilkBefore = cm.checkInventory().getMilk();
+		int amtSugarBefore = cm.checkInventory().getSugar();
+		int amtChocolateBefore = cm.checkInventory().getChocolate();
+		
 		boolean result = cm.addInventory(amtCoffee, amtMilk, amtSugar, amtChocolate);
 
+		assertTrue(cm.checkInventory().getCoffee() ==  amtCoffeeBefore + amtCoffee);
+		assertTrue(cm.checkInventory().getMilk() == amtMilkBefore + amtMilk);
+		assertTrue(cm.checkInventory().getSugar() == amtSugarBefore + amtSugar);
+		assertTrue(cm.checkInventory().getChocolate() == amtChocolateBefore + amtChocolate);
+		
 		// add additional test code here
-		assertEquals(false, result);
+		assertEquals(true, result);
 	}
 	
 	/**Test successful deletion of a recipe*/
@@ -206,21 +231,36 @@ public class CoffeeMakerTest extends TestCase {
 	/**Successful making of some kind of coffee */
 	public void testMakeCoffee_1() {
 		
+		int amtCoffee = 3;
+		int amtMilk = 1;
+		int amtSugar = 1;
+		int amtChocolate = 1;
+		
 		r1 = new Recipe();
 		r1.setName("Coffee");
 		r1.setPrice(50);
-		r1.setAmtCoffee(3);
-		r1.setAmtMilk(1);
-		r1.setAmtSugar(1);
-		r1.setAmtChocolate(0);
+		r1.setAmtCoffee(amtCoffee);
+		r1.setAmtMilk(amtMilk);
+		r1.setAmtSugar(amtSugar);
+		r1.setAmtChocolate(amtChocolate);
 		
 		testAddInventory1();
 		
-		int amtPaid = 51;
+		int amtCoffeeBefore = cm.checkInventory().getCoffee();
+		int amtMilkBefore = cm.checkInventory().getMilk();
+		int amtSugarBefore = cm.checkInventory().getSugar();
+		int amtChocolateBefore = cm.checkInventory().getChocolate();
+		
+		int amtPaid = 50;
 		int result = cm.makeCoffee(r1, amtPaid);
 
+		assertTrue(cm.checkInventory().getCoffee() ==  amtCoffeeBefore - amtCoffee);
+		assertTrue(cm.checkInventory().getMilk() == amtMilkBefore - amtMilk);
+		assertTrue(cm.checkInventory().getSugar() == amtSugarBefore - amtSugar);
+		assertTrue(cm.checkInventory().getChocolate() == amtChocolateBefore - amtChocolate);
+		
 		// add additional test code here
-		assertEquals(1, result);
+		assertEquals(0, result);
 	}
 	
 	/**Unsuccessful attempt at making coffee due to not enough price*/

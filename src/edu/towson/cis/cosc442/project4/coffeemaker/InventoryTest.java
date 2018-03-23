@@ -11,6 +11,8 @@ import static org.junit.Assert.*;
  * @version $Revision: 1.0 $
  */
 public class InventoryTest {
+	
+	Inventory fixture;
 	/**
 	 * Run the Inventory() constructor test.
 	 *
@@ -21,16 +23,14 @@ public class InventoryTest {
 	@Test
 	public void testInventory_1()
 		throws Exception {
-
-		Inventory result = new Inventory();
-
-		// add additional test code here
-		assertNotNull(result);
-		assertEquals("Coffee: 15nullMilk: 15nullSugar: 15nullChocolate: 15null", result.toString());
-		assertEquals(15, result.getSugar());
-		assertEquals(15, result.getCoffee());
-		assertEquals(15, result.getChocolate());
-		assertEquals(15, result.getMilk());
+		
+		assertNotNull(fixture);
+		assertEquals("Coffee: 15nullMilk: 15nullSugar: 15nullChocolate: 15null", fixture.toString());
+		assertEquals(15, fixture.getSugar());
+		assertEquals(15, fixture.getCoffee());
+		assertEquals(15, fixture.getChocolate());
+		assertEquals(15, fixture.getMilk());
+		
 	}
 
 	/**
@@ -43,12 +43,21 @@ public class InventoryTest {
 	@Test
 	public void testEnoughIngredients_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
+		
 		Recipe r = new Recipe();
-
+		r.setAmtChocolate(1);
+		r.setAmtCoffee(1);
+		r.setAmtMilk(1);
+		r.setAmtSugar(1);
+		r.setName("Coffee");
+		
+		CoffeeMaker cm = new CoffeeMaker();
+		cm.checkInventory().setChocolate(1); 
+		cm.checkInventory().setMilk(1); 
+		cm.checkInventory().setSugar(1); 
+		cm.checkInventory().setCoffee(1); 
+		
 		boolean result = fixture.enoughIngredients(r);
-
-		// add additional test code here
 		assertEquals(true, result);
 	}
 
@@ -62,7 +71,6 @@ public class InventoryTest {
 	@Test
 	public void testEnoughIngredients_2()
 		throws Exception {
-		Inventory fixture = new Inventory();
 		Recipe r = new Recipe();
 
 		boolean result = fixture.enoughIngredients(r);
@@ -81,8 +89,6 @@ public class InventoryTest {
 	@Test
 	public void testGetChocolate_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
-
 		int result = fixture.getChocolate();
 
 		// add additional test code here
@@ -99,8 +105,6 @@ public class InventoryTest {
 	@Test
 	public void testGetCoffee_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
-
 		int result = fixture.getCoffee();
 
 		// add additional test code here
@@ -117,8 +121,6 @@ public class InventoryTest {
 	@Test
 	public void testGetMilk_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
-
 		int result = fixture.getMilk();
 
 		// add additional test code here
@@ -135,8 +137,6 @@ public class InventoryTest {
 	@Test
 	public void testGetSugar_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
-
 		int result = fixture.getSugar();
 
 		// add additional test code here
@@ -153,12 +153,11 @@ public class InventoryTest {
 	@Test
 	public void testSetChocolate_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
 		int chocolate = -1;
 
 		fixture.setChocolate(chocolate);
 
-		// add additional test code here
+		assertEquals(fixture.getChocolate(), 0);
 	}
 
 	/**
@@ -171,11 +170,10 @@ public class InventoryTest {
 	@Test
 	public void testSetChocolate_2()
 		throws Exception {
-		Inventory fixture = new Inventory();
-		int chocolate = 1;
-
+		int chocolate = 0;
+		int amtChocolateBefore = fixture.getChocolate();
 		fixture.setChocolate(chocolate);
-
+		assertEquals(fixture.getChocolate(), chocolate);
 		// add additional test code here
 	}
 
@@ -189,7 +187,6 @@ public class InventoryTest {
 	@Test
 	public void testSetCoffee_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
 		int coffee = -1;
 
 		fixture.setCoffee(coffee);
@@ -207,7 +204,6 @@ public class InventoryTest {
 	@Test
 	public void testSetCoffee_2()
 		throws Exception {
-		Inventory fixture = new Inventory();
 		int coffee = 1;
 
 		fixture.setCoffee(coffee);
@@ -225,7 +221,6 @@ public class InventoryTest {
 	@Test
 	public void testSetMilk_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
 		int milk = -1;
 
 		fixture.setMilk(milk);
@@ -243,7 +238,6 @@ public class InventoryTest {
 	@Test
 	public void testSetMilk_2()
 		throws Exception {
-		Inventory fixture = new Inventory();
 		int milk = 1;
 
 		fixture.setMilk(milk);
@@ -261,7 +255,6 @@ public class InventoryTest {
 	@Test
 	public void testSetSugar_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
 		int sugar = -1;
 
 		fixture.setSugar(sugar);
@@ -279,7 +272,6 @@ public class InventoryTest {
 	@Test
 	public void testSetSugar_2()
 		throws Exception {
-		Inventory fixture = new Inventory();
 		int sugar = 1;
 
 		fixture.setSugar(sugar);
@@ -297,7 +289,6 @@ public class InventoryTest {
 	@Test
 	public void testToString_1()
 		throws Exception {
-		Inventory fixture = new Inventory();
 
 		String result = fixture.toString();
 
@@ -317,6 +308,7 @@ public class InventoryTest {
 	public void setUp()
 		throws Exception {
 		// add additional set up code here
+		fixture = new Inventory();
 	}
 
 	/**
